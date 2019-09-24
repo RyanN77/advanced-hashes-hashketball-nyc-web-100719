@@ -1,5 +1,7 @@
 require "pry"
 
+the_players = value[:players][0]
+
 def game_hash
     hash = {}
     hash[:home] = {:team_name => "Brooklyn Nets", :colors => ["Black", "White"], 
@@ -34,9 +36,9 @@ end
 
 def num_points_scored(player_name)
     game_hash.each do |key, value|
-      value[:players][0].each do |key1, value1|
+      the_players.each do |key1, value1|
         if key1 == player_name
-         return value[:players][0][player_name][:points]
+         return the_players[player_name][:points]
         end
       end
     end
@@ -44,9 +46,9 @@ end
 
 def shoe_size(player_name)
     game_hash.each do |key, value|
-      value[:players][0].each do |key1, value1|
+      the_players.each do |key1, value1|
         if key1 == player_name
-         return value[:players][0][player_name][:shoe]
+         return the_players[player_name][:shoe]
         end
       end
     end
@@ -72,7 +74,7 @@ def player_numbers(team_name)
   array = []
   game_hash.each do |key, value|
     if value[:team_name] == team_name 
-      value[:players][0].each do |key1, value1|
+      the_players.each do |key1, value1|
       array << value1[:number]
       end
     end
@@ -84,7 +86,7 @@ def big_shoe_rebounds
   shoe_size = 0 
   rebound_of_largest_shoe = 0
   game_hash.each do |key, value|
-      value[:players][0].each do |key1, value1|
+      the_players.each do |key1, value1|
       if value1[:shoe] > shoe_size
         shoe_size = value1[:shoe]
         rebound_of_largest_shoe = value1[:rebounds]
@@ -96,9 +98,9 @@ end
 
 def player_stats(player_name)
   game_hash.each do |key, value|
-    value[:players][0].each do |key1, value1|
+    the_players.each do |key1, value1|
       if key1 == player_name
-       return value[:players][0][player_name]
+       return the_players[player_name]
       end
     end
   end
@@ -108,7 +110,7 @@ def most_points_scored
   most_points = 0
   best_player = ""
 game_hash.each do |key, value|
-  value[:players][0].each do |key1, value1|
+  the_players.each do |key1, value1|
     if num_points_scored(key1) > most_points
       best_player = key1
       most_points = num_points_scored(key1) 
@@ -124,7 +126,7 @@ def winning_team
   
   game_hash.each do |key, value|
     if value[:team_name] == team_names[0]
-      value[:players][0].each do |key1, value1|
+      the_players.each do |key1, value1|
       points_b_n += value1[:points]
       end
     else if value[:team_name] == team_names[1]
@@ -144,7 +146,7 @@ def player_with_longest_name
   player_name = ""
   longest_length = 0
   game_hash.each do |key, value|
-      value[:players][0].each do |key1, value1|
+      the_players.each do |key1, value1|
         if key1.length > longest_length
           longest_length = key1.length
           player_name = key1
@@ -157,9 +159,9 @@ end
 def long_name_steals_a_ton?
   most_steals = 0
     game_hash.each do |key, value|
-      value[:players][0].each do |key1, value1|
+      the_players.each do |key1, value1|
         if key1 == player_with_longest_name
-          most_steals = value[:players][0][player_with_longest_name][:steals]
+          most_steals = the_players[player_with_longest_name][:steals]
             if value1[:steals] > most_steals
               return false
             end
